@@ -41,7 +41,7 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
             project.task("uber" + name, type: Jar) {
                 description =
                     'Constructs a jar with all runtime dependencies included'
-                group = ClojureBasePlugin.CLOJURE_GROUP
+                group = "other"
                 dependsOn jar.source, project.configurations.runtime
                 baseName = jar.baseName + "-standalone"
                 enabled = false
@@ -63,7 +63,7 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
         project.task("deps", type: Copy) {
             description =
                 'Copy runtime dependencies into the build/lib directory'
-            group = ClojureBasePlugin.CLOJURE_GROUP
+            group = "other"
             into 'lib'
             from project.configurations.testRuntime
             from project.configurations.development
