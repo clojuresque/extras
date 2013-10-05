@@ -30,8 +30,6 @@ import org.gradle.api.tasks.bundling.Jar
 
 public class ClojureExtrasPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        project.apply plugin: "clojure-min"
-
         configureUberjar(project)
         configureDepsTask(project)
     }
