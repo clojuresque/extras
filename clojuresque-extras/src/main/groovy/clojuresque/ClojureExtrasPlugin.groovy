@@ -62,11 +62,10 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
     private void configureDepsTask(Project project) {
         project.task("deps", type: DependencyCopyTask) {
             description =
-                'Copy runtime dependencies into the build/lib directory'
+                'Copy runtime dependencies into the "lib" directory'
             group = "other"
             into 'lib'
-            from project.configurations.testRuntime
-            from project.configurations.development
+            from project.configurations.runtime
         }
     }
 }
