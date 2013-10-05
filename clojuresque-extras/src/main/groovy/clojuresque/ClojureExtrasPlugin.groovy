@@ -23,8 +23,6 @@
 
 package clojuresque
 
-import clojuresque.tasks.DependencyCopyTask
-
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -60,7 +58,7 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
     }
 
     private void configureDepsTask(Project project) {
-        project.task("deps", type: DependencyCopyTask) {
+        project.task("deps", type: Copy) {
             description =
                 'Copy runtime dependencies into the "lib" directory'
             group = "other"
