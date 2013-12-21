@@ -15,7 +15,7 @@ subprojects {
 
     ext.kotka = [
         repository:     "clojuresque/extras",
-        wrapperVersion: "1.8"
+        wrapperVersion: "1.10"
     ]
 
     apply plugin: 'kotka'
@@ -53,5 +53,5 @@ project(':clojuresque-extras') {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.8"
+    gradleVersion = "1.10"
 }
