@@ -23,6 +23,8 @@
 
 package clojuresque
 
+import clojuresque.tasks.TaskWatcher
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -32,6 +34,7 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
     public void apply(Project project) {
         configureUberjar(project)
         configureDepsTask(project)
+        configureTaskWatcher(project)
     }
 
     private void configureUberjar(Project project) {
@@ -64,6 +67,13 @@ public class ClojureExtrasPlugin implements Plugin<Project> {
             group = "other"
             into 'lib'
             from project.configurations.runtime
+        }
+    }
+
+    private void configureTaskWatcher(Project project) {
+        project.task("watchTasks", type: TaskWatcher) {
+            description = "Run watched tasks continually"
+            group = "other"
         }
     }
 }
