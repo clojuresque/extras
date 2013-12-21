@@ -50,6 +50,22 @@ project(':clojuresque-extras') {
             expand("version": project.version)
         }
     }
+
+    task groovydocJar(type: Jar) {
+        classifier = "javadoc"
+        from project.groovydoc.outputs
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = "sources"
+        from project.sourceSets.main.allSource
+        exclude "**/.*.swp"
+    }
+
+    artifacts {
+        archives project.groovydocJar
+        archives project.sourcesJar
+    }
 }
 
 task wrapper(type: Wrapper) {
