@@ -1,5 +1,5 @@
 /*-
- * Copyright 2009-2013 © Meikel Brandmeyer.
+ * Copyright 2013 © Meikel Brandmeyer.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,11 +25,29 @@ package clojuresque
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.bundling.Jar
 
-public class ClojureExtrasPlugin implements Plugin<Project> {
+public class ClojureExtrasUberJarPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        project.apply plugin: "clojure-extras-uberjar"
-        project.apply plugin: "clojure-extras-deps"
-        project.apply plugin: "clojure-extras-taskwatcher"
+        project.tasks.withType(Jar).asMap.each { name, jar ->
+            project.task("uber" + name, type: Jar) {
+                description =
+                    'Constructs a jar with all runtime dependencies included'
+                group = "other"
+                dependsOn jar.source, project.configurations.runtime
+                baseName = jar.baseName + "-standalone"
+                enabled = false
+                doFirst {
+                    project.configurations.runtime.each {
+                        from project.zipTree(it)
+                        exclude 'META-INF/MANIFEST.MF'
+                        exclude 'META-INF/*.SF'
+                        exclude 'META-INF/*.DSA'
+                        exclude 'META-INF/*.RSA'
+                    }
+                    from jar.source
+                }
+            }
+        }
     }
 }

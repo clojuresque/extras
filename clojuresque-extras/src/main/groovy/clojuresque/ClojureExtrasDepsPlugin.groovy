@@ -1,5 +1,5 @@
 /*-
- * Copyright 2009-2013 © Meikel Brandmeyer.
+ * Copyright 2013 © Meikel Brandmeyer.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,11 +25,16 @@ package clojuresque
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.Copy
 
-public class ClojureExtrasPlugin implements Plugin<Project> {
+public class ClojureExtrasDepsPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        project.apply plugin: "clojure-extras-uberjar"
-        project.apply plugin: "clojure-extras-deps"
-        project.apply plugin: "clojure-extras-taskwatcher"
+        project.task("deps", type: Copy) {
+            description =
+                'Copy runtime dependencies into the "lib" directory'
+            group = "other"
+            into 'lib'
+            from project.configurations.runtime
+        }
     }
 }

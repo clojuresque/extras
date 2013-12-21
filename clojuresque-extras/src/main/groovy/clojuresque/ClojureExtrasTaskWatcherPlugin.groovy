@@ -1,5 +1,5 @@
 /*-
- * Copyright 2009-2013 © Meikel Brandmeyer.
+ * Copyright 2013 © Meikel Brandmeyer.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,13 +23,16 @@
 
 package clojuresque
 
+import clojuresque.tasks.TaskWatcher
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-public class ClojureExtrasPlugin implements Plugin<Project> {
+public class ClojureExtrasTaskWatcherPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        project.apply plugin: "clojure-extras-uberjar"
-        project.apply plugin: "clojure-extras-deps"
-        project.apply plugin: "clojure-extras-taskwatcher"
+        project.task("watchTasks", type: TaskWatcher) {
+            description = "Run watched tasks continually"
+            group = "other"
+        }
     }
 }
