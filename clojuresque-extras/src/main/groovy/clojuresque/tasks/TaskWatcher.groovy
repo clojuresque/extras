@@ -103,7 +103,10 @@ class TaskWatcher extends DefaultTask {
         try {
             project.tasks["watchedTaskExecutor"]
         } catch (UnknownTaskException exc) {
-            project.task("watchedTaskExecutor", type: GradleBuild)
+            project.task("watchedTaskExecutor", type: GradleBuild) {
+                description = "Internal task for TaskWatcher"
+                group = "other"
+            }
         }
     }
 }
