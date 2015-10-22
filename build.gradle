@@ -12,7 +12,7 @@ description = "A Clojure plugin for gradle (extra tasks)"
 
 kotka {
     wrapperVersion = "2.8"
-    licenses   = [ "MIT" ]
+    licenses   = [ "EUPL-1.1", "MIT" ]
     repository = "clojuresque/extras"
     bintray    = [ repo: "clojuresque" ]
 }
