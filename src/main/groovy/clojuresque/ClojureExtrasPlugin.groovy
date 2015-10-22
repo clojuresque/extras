@@ -28,8 +28,8 @@ import org.gradle.api.Project
 
 public class ClojureExtrasPlugin implements Plugin<Project> {
     public void apply(Project project) {
-        project.apply plugin: "clojure-extras-uberjar"
-        project.apply plugin: "clojure-extras-deps"
-        project.apply plugin: "clojure-extras-taskwatcher"
+        project.apply plugin: "de.kotka.clojuresque.extras.uberjar"
+        project.apply plugin: "de.kotka.clojuresque.extras.deps"
+        project.apply plugin: "de.kotka.clojuresque.extras.taskwatcher"
     }
 }
