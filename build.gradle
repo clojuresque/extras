@@ -1,31 +1,25 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "http://clojars.org/repo" }
-    }
-
-    dependencies {
-        classpath "de.kotka.gradle:gradle-plugin:1.1.0"
-    }
+plugins {
+    id "com.jfrog.bintray" version "1.4"
+    id "com.gradle.plugin-publish" version "0.9.1"
+    id "de.kotka.project" version "1.5.1"
 }
+
+apply plugin: 'groovy'
 
 group = 'clojuresque'
 version = '1.2.0-SNAPSHOT'
+description = "A Clojure plugin for gradle (extra tasks)"
 
-ext.kotka = [
-    repository:     "clojuresque/extras",
-    wrapperVersion: "1.10"
-]
-
-apply plugin: 'kotka'
+kotka {
+    wrapperVersion = "1.10"
+    licenses   = [ "MIT" ]
+    repository = "clojuresque/extras"
+    bintray    = [ repo: "clojuresque" ]
+}
 
 repositories {
     mavenCentral()
 }
-
-description = "A Clojure plugin for gradle (extra tasks)"
-
-apply plugin: 'groovy'
 
 dependencies {
     compile gradleApi()
@@ -46,24 +40,4 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         expand("version": project.version)
     }
-}
-
-task groovydocJar(type: Jar) {
-    classifier = "javadoc"
-    from project.groovydoc.outputs
-}
-
-task sourcesJar(type: Jar) {
-    classifier = "sources"
-    from project.sourceSets.main.allSource
-    exclude "**/.*.swp"
-}
-
-artifacts {
-    archives project.groovydocJar
-    archives project.sourcesJar
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "1.10"
 }
